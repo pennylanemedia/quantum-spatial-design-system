@@ -481,6 +481,315 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ activeCategory, activ
   );
 };
 
+// Enhanced Category Filter Widget Component
+interface CategoryFilterWidgetProps {
+  activeCategory: string;
+  onCategorySelect: (categoryId: string) => void;
+}
+
+const CategoryFilterWidget: React.FC<CategoryFilterWidgetProps> = ({ activeCategory, onCategorySelect }) => {
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+
+  const toggleCategory = (categoryId: string) => {
+    const newExpanded = new Set(expandedCategories);
+    if (newExpanded.has(categoryId)) {
+      newExpanded.delete(categoryId);
+    } else {
+      newExpanded.add(categoryId);
+    }
+    setExpandedCategories(newExpanded);
+  };
+
+  const isExpanded = (categoryId: string) => expandedCategories.has(categoryId);
+
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: quantumTokens.spacing.sm,
+      marginBottom: quantumTokens.spacing.xxl,
+    }}>
+      {/* Home Button */}
+      <motion.button
+        onClick={() => window.location.href = '/'}
+        whileHover={{ scale: 1.02, x: 4 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        style={{
+          background: `linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            rgba(139, 92, 246, 0.15) 50%, 
+            rgba(255, 255, 255, 0.1) 100%
+          )`,
+          border: '1px solid rgba(139, 92, 246, 0.3)',
+          borderRadius: '16px',
+          padding: '14px 18px',
+          color: 'rgb(245, 245, 247)',
+          fontSize: '14px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          backdropFilter: 'blur(20px) saturate(150%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+          transition: 'all 0.3s ease',
+          textAlign: 'left',
+          width: '100%',
+          boxShadow: `
+            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            0 4px 16px rgba(139, 92, 246, 0.2)
+          `,
+        }}
+      >
+        🏠 Home
+      </motion.button>
+
+      {/* All Products Button */}
+      <motion.button
+        onClick={() => onCategorySelect('all')}
+        whileHover={{ scale: 1.02, x: 4 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        style={{
+          background: activeCategory === 'all' 
+            ? `linear-gradient(135deg, 
+                rgba(139, 92, 246, 0.5) 0%, 
+                rgba(99, 102, 241, 0.4) 50%, 
+                rgba(139, 92, 246, 0.5) 100%
+              )`
+            : `linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(139, 92, 246, 0.15) 50%, 
+                rgba(255, 255, 255, 0.1) 100%
+              )`,
+          border: `1px solid ${activeCategory === 'all' ? 'rgba(139, 92, 246, 0.6)' : 'rgba(139, 92, 246, 0.3)'}`,
+          borderRadius: '16px',
+          padding: '14px 18px',
+          color: activeCategory === 'all' ? 'white' : 'rgb(245, 245, 247)',
+          fontSize: '14px',
+          fontWeight: activeCategory === 'all' ? '700' : '600',
+          cursor: 'pointer',
+          backdropFilter: 'blur(20px) saturate(150%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+          transition: 'all 0.3s ease',
+          textAlign: 'left',
+          width: '100%',
+          boxShadow: activeCategory === 'all'
+            ? `
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 8px 24px rgba(139, 92, 246, 0.4),
+                0 0 32px rgba(139, 92, 246, 0.2)
+              `
+            : `
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 4px 16px rgba(139, 92, 246, 0.2)
+              `,
+        }}
+      >
+        🛍️ All Products
+      </motion.button>
+
+      {/* Category Buttons with Expandable Subcategories */}
+      {Object.values(PRODUCT_CATEGORIES).map((category) => (
+        <div key={category.id} style={{ width: '100%' }}>
+          {/* Main Category Button */}
+          <motion.div
+            style={{
+              background: activeCategory === category.id 
+                ? `linear-gradient(135deg, 
+                    rgba(139, 92, 246, 0.5) 0%, 
+                    rgba(99, 102, 241, 0.4) 50%, 
+                    rgba(139, 92, 246, 0.5) 100%
+                  )`
+                : `linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.1) 0%, 
+                    rgba(139, 92, 246, 0.15) 50%, 
+                    rgba(255, 255, 255, 0.1) 100%
+                  )`,
+              border: `1px solid ${activeCategory === category.id ? 'rgba(139, 92, 246, 0.6)' : 'rgba(139, 92, 246, 0.3)'}`,
+              borderRadius: '16px',
+              backdropFilter: 'blur(20px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+              transition: 'all 0.3s ease',
+              width: '100%',
+              overflow: 'hidden',
+              boxShadow: activeCategory === category.id
+                ? `
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 8px 24px rgba(139, 92, 246, 0.4),
+                    0 0 32px rgba(139, 92, 246, 0.2)
+                  `
+                : `
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                    0 4px 16px rgba(139, 92, 246, 0.2)
+                  `,
+            }}
+            whileHover={{ scale: 1.02, x: 4 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+          >
+            <button
+              onClick={() => {
+                onCategorySelect(category.id);
+                toggleCategory(category.id);
+              }}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: '14px 18px',
+                color: activeCategory === category.id ? 'white' : 'rgb(245, 245, 247)',
+                fontSize: '14px',
+                fontWeight: activeCategory === category.id ? '700' : '600',
+                cursor: 'pointer',
+                textAlign: 'left',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '16px' }}>{category.icon}</span>
+                {category.name}
+              </span>
+              <motion.div
+                animate={{ rotate: isExpanded(category.id) ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'rgba(255, 255, 255, 0.6)',
+                  fontSize: '12px',
+                }}
+              >
+                ▼
+              </motion.div>
+            </button>
+
+            {/* Expandable Subcategories */}
+            <AnimatePresence>
+              {isExpanded(category.id) && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: 'easeInOut',
+                    opacity: { duration: 0.2 }
+                  }}
+                  style={{
+                    overflow: 'hidden',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: `linear-gradient(135deg, 
+                      rgba(0, 0, 0, 0.2) 0%, 
+                      rgba(139, 92, 246, 0.1) 50%, 
+                      rgba(0, 0, 0, 0.2) 100%
+                    )`,
+                  }}
+                >
+                  <div style={{
+                    padding: '12px 18px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '6px',
+                  }}>
+                    {category.subcategories.map((subcategory, index) => (
+                      <motion.button
+                        key={subcategory}
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ 
+                          duration: 0.3, 
+                          delay: index * 0.05,
+                          ease: 'easeOut'
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onCategorySelect(category.id);
+                          // Additional subcategory filtering logic can be added here
+                        }}
+                        style={{
+                          background: `linear-gradient(135deg, 
+                            rgba(255, 255, 255, 0.05) 0%, 
+                            rgba(139, 92, 246, 0.1) 100%
+                          )`,
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          borderRadius: '10px',
+                          padding: '8px 12px',
+                          color: 'rgba(255, 255, 255, 0.8)',
+                          fontSize: '12px',
+                          fontWeight: '500',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'all 0.2s ease',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = `linear-gradient(135deg, 
+                            rgba(139, 92, 246, 0.2) 0%, 
+                            rgba(99, 102, 241, 0.15) 100%
+                          )`;
+                          e.currentTarget.style.color = 'white';
+                          e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = `linear-gradient(135deg, 
+                            rgba(255, 255, 255, 0.05) 0%, 
+                            rgba(139, 92, 246, 0.1) 100%
+                          )`;
+                          e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        }}
+                      >
+                        • {subcategory}
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      ))}
+
+      {/* Special Cthulhu Wars Button */}
+      <motion.button
+        onClick={() => window.location.href = '/cthulhu-wars'}
+        whileHover={{ scale: 1.02, x: 4 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        style={{
+          background: `linear-gradient(135deg, 
+            rgba(30, 27, 75, 0.8) 0%, 
+            rgba(139, 92, 246, 0.4) 50%, 
+            rgba(30, 27, 75, 0.8) 100%
+          )`,
+          border: '1px solid rgba(139, 92, 246, 0.5)',
+          borderRadius: '16px',
+          padding: '14px 18px',
+          color: 'rgb(245, 245, 247)',
+          fontSize: '14px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          backdropFilter: 'blur(20px) saturate(150%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+          transition: 'all 0.3s ease',
+          textAlign: 'left',
+          width: '100%',
+          boxShadow: `
+            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            0 6px 20px rgba(139, 92, 246, 0.3),
+            0 0 40px rgba(30, 27, 75, 0.2)
+          `,
+        }}
+      >
+        🐙 Cthulhu Wars
+      </motion.button>
+    </div>
+  );
+};
+
 // Main Homepage Component
 interface PetersenGamesHomepageProps {}
 
@@ -685,87 +994,6 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
             />
           </a>
 
-            {/* Tab Navigation */}
-            <div style={{
-              display: isMobile ? 'none' : 'flex', // Hide tabs on mobile to save space
-              gap: '8px',
-              alignItems: 'center',
-              marginTop: '10px',
-            }}>
-              <button
-                onClick={() => handleCategorySelect('all')}
-                style={{
-                  background: activeCategory === 'all' 
-                    ? 'rgba(139, 92, 246, 0.5)' 
-                    : 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(139, 92, 246, 0.3)',
-                  borderRadius: '12px',
-                  padding: '8px 14px',
-                  color: 'rgb(245, 245, 247)',
-                  textDecoration: 'none',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  opacity: activeCategory === 'all' ? 1 : 0.9,
-                  transition: '0.2s',
-                  cursor: 'pointer',
-                  backdropFilter: 'blur(10px)',
-                  transform: activeCategory === 'all' ? 'scale(1.05)' : 'scale(1)',
-                  whiteSpace: 'nowrap',
-                }}
-                onMouseEnter={(e) => {
-                  if (activeCategory !== 'all') {
-                    e.currentTarget.style.opacity = '1';
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (activeCategory !== 'all') {
-                    e.currentTarget.style.opacity = '0.9';
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }
-                }}
-              >
-                All Products
-              </button>
-              {Object.values(PRODUCT_CATEGORIES).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategorySelect(category.id)}
-                  style={{
-                    background: activeCategory === category.id 
-                      ? 'rgba(139, 92, 246, 0.5)' 
-                      : 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(139, 92, 246, 0.3)',
-                    borderRadius: '12px',
-                    padding: '8px 14px',
-                    color: 'rgb(245, 245, 247)',
-                    textDecoration: 'none',
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    opacity: activeCategory === category.id ? 1 : 0.9,
-                    transition: '0.2s',
-                    cursor: 'pointer',
-                    backdropFilter: 'blur(10px)',
-                    transform: activeCategory === category.id ? 'scale(1.05)' : 'scale(1)',
-                    whiteSpace: 'nowrap',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (activeCategory !== category.id) {
-                      e.currentTarget.style.opacity = '1';
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeCategory !== category.id) {
-                      e.currentTarget.style.opacity = '0.9';
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }
-                  }}
-                >
-                  {category.icon} {category.name}
-                </button>
-              ))}
-            </div>
 
           {/* Search & Cart */}
           <div style={{ display: 'flex', alignItems: 'center', gap: quantumTokens.spacing.sm }}>
@@ -986,151 +1214,11 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
             </a>
           </div>
 
-          {/* Navigation Buttons */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: quantumTokens.spacing.sm,
-            marginBottom: quantumTokens.spacing.xxl,
-          }}>
-            <motion.button
-              onClick={() => window.location.href = '/'}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'rgb(245, 245, 247)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.2s ease',
-                textAlign: 'left',
-                width: '100%',
-              }}
-            >
-              🏠 Home
-            </motion.button>
-
-            <motion.button
-              onClick={() => handleCategorySelect('all')}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              style={{
-                background: activeCategory === 'all' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'rgb(245, 245, 247)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.2s ease',
-                textAlign: 'left',
-                width: '100%',
-              }}
-            >
-              🛍️ Shop
-            </motion.button>
-
-            <motion.button
-              onClick={() => handleCategorySelect('core-games')}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              style={{
-                background: activeCategory === 'core-games' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'rgb(245, 245, 247)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.2s ease',
-                textAlign: 'left',
-                width: '100%',
-              }}
-            >
-              🎯 Core Games
-            </motion.button>
-
-            <motion.button
-              onClick={() => handleCategorySelect('expansions')}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              style={{
-                background: activeCategory === 'expansions' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'rgb(245, 245, 247)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.2s ease',
-                textAlign: 'left',
-                width: '100%',
-              }}
-            >
-              📦 Expansions
-            </motion.button>
-
-            <motion.button
-              onClick={() => handleCategorySelect('miniatures')}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              style={{
-                background: activeCategory === 'miniatures' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'rgb(245, 245, 247)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.2s ease',
-                textAlign: 'left',
-                width: '100%',
-              }}
-            >
-              🗿 Miniatures
-            </motion.button>
-
-            <motion.button
-              onClick={() => window.location.href = '/cthulhu-wars'}
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                color: 'rgb(245, 245, 247)',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.2s ease',
-                textAlign: 'left',
-                width: '100%',
-              }}
-            >
-              🐙 Cthulhu Wars
-            </motion.button>
-          </div>
+          {/* Enhanced Sticky Category Filter Widget */}
+          <CategoryFilterWidget
+            activeCategory={activeCategory}
+            onCategorySelect={handleCategorySelect}
+          />
 
           {/* Filters */}
           <FilterComponent
@@ -1152,30 +1240,30 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
             borderRadius: isMobile ? quantumTokens.radius.lg : quantumTokens.radius.xxl,
             overflow: 'hidden',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'stretch',
             justifyContent: 'center',
             textAlign: 'center',
             background: `linear-gradient(135deg, 
-              rgba(0, 0, 0, 0.7) 0%, 
-              rgba(45, 27, 105, 0.6) 25%, 
-              rgba(76, 29, 149, 0.5) 50%, 
-              rgba(99, 102, 241, 0.4) 75%, 
-              rgba(0, 0, 0, 0.8) 100%
+              rgba(0, 0, 0, 0.3) 0%, 
+              rgba(45, 27, 105, 0.4) 25%, 
+              rgba(76, 29, 149, 0.3) 50%, 
+              rgba(99, 102, 241, 0.2) 75%, 
+              rgba(0, 0, 0, 0.6) 100%
             ), url('/assets/cthulhu-dire.jpg')`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
           }}>
-            {/* Glass overlay for better text readability */}
+            {/* Glass overlay for better text readability - only at bottom */}
             <div style={{
               position: 'absolute',
-              top: 0,
+              bottom: 0,
               left: 0,
               right: 0,
-              bottom: 0,
-              background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(45, 27, 105, 0.3) 50%, rgba(0, 0, 0, 0.5) 100%)',
-              backdropFilter: 'blur(2px) saturate(150%)',
-              WebkitBackdropFilter: 'blur(2px) saturate(150%)',
+              height: '50%',
+              background: 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.7) 100%)',
+              backdropFilter: 'blur(1px)',
+              WebkitBackdropFilter: 'blur(1px)',
             }} />
             
             {/* Hero Content */}
@@ -1184,6 +1272,12 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
               zIndex: 2,
               maxWidth: isMobile ? '100%' : '800px',
               padding: isMobile ? quantumTokens.spacing.md : quantumTokens.spacing.xl,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              height: '100%',
+              paddingBottom: isMobile ? '60px' : '80px',
             }}>
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
@@ -1337,6 +1431,7 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                     className="product-card-enhanced"
                     whileHover={{ y: -12, scale: 1.02 }}
                     transition={{ duration: 0.3 }}
+                    onClick={() => window.location.href = `/products/${product.handle || product.id}`}
                     style={{
                       minWidth: isMobile ? '280px' : '320px',
                       width: isMobile ? '280px' : '320px',
@@ -1577,6 +1672,7 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                       className="product-card-enhanced"
                       whileHover={{ y: -8, scale: 1.02 }}
                       transition={{ duration: 0.3 }}
+                      onClick={() => window.location.href = `/products/${product.handle || product.id}`}
                       style={{
                         padding: quantumTokens.spacing.lg,
                         cursor: 'pointer',
@@ -2079,97 +2175,375 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
         )}
       </AnimatePresence>
 
-      {/* Footer */}
+      {/* Enhanced Dark Purple Glass Footer */}
       <footer style={{
         marginTop: 'auto',
+        position: 'relative',
         background: `linear-gradient(180deg, 
           rgba(0, 0, 0, 0) 0%,
-          rgba(15, 10, 25, 0.3) 20%,
-          rgba(30, 27, 75, 0.5) 40%,
-          rgba(45, 27, 105, 0.7) 60%,
-          rgba(30, 27, 75, 0.8) 80%,
-          rgba(0, 0, 0, 0.95) 100%
+          rgba(15, 10, 25, 0.4) 15%,
+          rgba(30, 27, 75, 0.6) 30%,
+          rgba(45, 27, 105, 0.75) 45%,
+          rgba(76, 29, 149, 0.85) 60%,
+          rgba(99, 102, 241, 0.9) 75%,
+          rgba(139, 92, 246, 0.95) 85%,
+          rgba(30, 27, 75, 0.98) 95%,
+          rgba(0, 0, 0, 1) 100%
         )`,
-        backdropFilter: 'blur(40px) saturate(150%)',
-        WebkitBackdropFilter: 'blur(40px) saturate(150%)',
-        borderTop: '1px solid rgba(139, 92, 246, 0.2)',
-        padding: isMobile ? `${quantumTokens.spacing.xl} ${quantumTokens.spacing.md}` : `${quantumTokens.spacing.xxl} ${quantumTokens.spacing.lg}`,
+        backdropFilter: 'blur(60px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(60px) saturate(180%)',
+        borderTop: '1px solid rgba(139, 92, 246, 0.3)',
+        padding: isMobile ? `${quantumTokens.spacing.xxl} ${quantumTokens.spacing.md}` : `${quantumTokens.spacing.xxl} ${quantumTokens.spacing.lg}`,
+        overflow: 'hidden',
       }}>
+        {/* Floating cosmic orbs */}
         <div style={{
+          position: 'absolute',
+          top: '20%',
+          left: '10%',
+          width: '120px',
+          height: '120px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+          animation: 'pulse 12s ease-in-out infinite',
+        }} />
+        
+        <div style={{
+          position: 'absolute',
+          bottom: '30%',
+          right: '15%',
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+          animation: 'pulse 15s ease-in-out infinite reverse',
+        }} />
+
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
           maxWidth: '1400px',
           margin: '0 auto',
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: quantumTokens.spacing.lg,
         }}>
-          {/* Logo */}
+          {/* Main Footer Content */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            opacity: 0.8,
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr 1fr',
+            gap: isMobile ? quantumTokens.spacing.xl : quantumTokens.spacing.xxl,
+            marginBottom: quantumTokens.spacing.xxl,
+            alignItems: 'start',
           }}>
-            <img 
-              src="/assets/PetersenGames-horizontal-logo.svg" 
-              alt="Petersen Games"
-              style={{
-                height: isMobile ? '32px' : '40px',
-                width: 'auto',
-                filter: 'brightness(0.9) saturate(120%)',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.filter = 'brightness(1.1) saturate(150%) drop-shadow(0 0 10px rgba(139, 92, 246, 0.4))';
-                e.currentTarget.parentElement!.style.opacity = '1';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.filter = 'brightness(0.9) saturate(120%)';
-                e.currentTarget.parentElement!.style.opacity = '0.8';
-              }}
-            />
+            
+            {/* Logo Section */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: isMobile ? 'center' : 'flex-start',
+              gap: quantumTokens.spacing.md,
+            }}>
+              <img 
+                src="/assets/PetersenGames-horizontal-logo.svg" 
+                alt="Petersen Games"
+                style={{
+                  height: isMobile ? '36px' : '48px',
+                  width: 'auto',
+                  filter: 'brightness(1.1) saturate(130%)',
+                  transition: 'all 0.3s ease',
+                  marginBottom: quantumTokens.spacing.sm,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.filter = 'brightness(1.3) saturate(150%) drop-shadow(0 0 20px rgba(139, 92, 246, 0.6))';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.filter = 'brightness(1.1) saturate(130%)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+              />
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.7)',
+                fontSize: '14px',
+                lineHeight: '1.5',
+                textAlign: isMobile ? 'center' : 'left',
+                margin: 0,
+                maxWidth: '240px',
+              }}>
+                Creating legendary gaming experiences that blend strategic depth with cosmic horror.
+              </p>
+            </div>
+
+            {/* Footer Links */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
+              gap: isMobile ? quantumTokens.spacing.lg : quantumTokens.spacing.xl,
+            }}>
+              
+              {/* Shop Links */}
+              <div>
+                <h4 style={{
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  marginBottom: quantumTokens.spacing.md,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                }}>Shop</h4>
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: quantumTokens.spacing.xs,
+                }}>
+                  {['All Products', 'Core Games', 'Expansions', 'Miniatures', 'Books', 'Accessories'].map((link) => (
+                    <li key={link}>
+                      <a
+                        href={`#${link.toLowerCase().replace(' ', '-')}`}
+                        style={{
+                          color: 'rgba(255, 255, 255, 0.6)',
+                          textDecoration: 'none',
+                          fontSize: '14px',
+                          transition: 'all 0.2s ease',
+                          display: 'block',
+                          padding: '2px 0',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = 'rgba(139, 92, 246, 0.9)';
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }}
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Company Links */}
+              <div>
+                <h4 style={{
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  marginBottom: quantumTokens.spacing.md,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                }}>Company</h4>
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: quantumTokens.spacing.xs,
+                }}>
+                  {['About Us', 'Contact', 'News', 'Press Kit', 'Careers', 'Community'].map((link) => (
+                    <li key={link}>
+                      <a
+                        href={`#${link.toLowerCase().replace(' ', '-')}`}
+                        style={{
+                          color: 'rgba(255, 255, 255, 0.6)',
+                          textDecoration: 'none',
+                          fontSize: '14px',
+                          transition: 'all 0.2s ease',
+                          display: 'block',
+                          padding: '2px 0',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = 'rgba(139, 92, 246, 0.9)';
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }}
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Support Links */}
+              <div>
+                <h4 style={{
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  marginBottom: quantumTokens.spacing.md,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                }}>Support</h4>
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: quantumTokens.spacing.xs,
+                }}>
+                  {['Help Center', 'Shipping Info', 'Returns', 'FAQ', 'Contact Support', 'Game Rules'].map((link) => (
+                    <li key={link}>
+                      <a
+                        href={`#${link.toLowerCase().replace(' ', '-')}`}
+                        style={{
+                          color: 'rgba(255, 255, 255, 0.6)',
+                          textDecoration: 'none',
+                          fontSize: '14px',
+                          transition: 'all 0.2s ease',
+                          display: 'block',
+                          padding: '2px 0',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = 'rgba(139, 92, 246, 0.9)';
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }}
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Social & Newsletter */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: isMobile ? 'center' : 'flex-end',
+              gap: quantumTokens.spacing.lg,
+            }}>
+              <h4 style={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                fontSize: '16px',
+                fontWeight: '600',
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>Connect</h4>
+              
+              {/* Social Links */}
+              <div style={{
+                display: 'flex',
+                gap: quantumTokens.spacing.md,
+                alignItems: 'center',
+              }}>
+                {['Facebook', 'Twitter', 'Instagram', 'YouTube'].map((social) => (
+                  <a
+                    key={social}
+                    href={`#${social.toLowerCase()}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      border: '1px solid rgba(139, 92, 246, 0.3)',
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      textDecoration: 'none',
+                      fontSize: '16px',
+                      transition: 'all 0.3s ease',
+                      backdropFilter: 'blur(10px)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(139, 92, 246, 0.3)';
+                      e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.6)';
+                      e.currentTarget.style.color = 'white';
+                      e.currentTarget.style.transform = 'translateY(-2px) scale(1.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)';
+                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)';
+                      e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    }}
+                  >
+                    {social.charAt(0)}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Copyright */}
+          {/* Bottom Section */}
           <div style={{
+            borderTop: '1px solid rgba(139, 92, 246, 0.2)',
+            paddingTop: quantumTokens.spacing.lg,
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             alignItems: 'center',
-            gap: isMobile ? quantumTokens.spacing.sm : quantumTokens.spacing.lg,
-            color: 'rgba(255, 255, 255, 0.6)',
-            fontSize: isMobile ? '13px' : '14px',
-            textAlign: isMobile ? 'center' : 'right',
+            justifyContent: 'space-between',
+            gap: quantumTokens.spacing.md,
           }}>
-            <span>© 2024 Petersen Games. All rights reserved.</span>
-            {!isMobile && <span>•</span>}
-            <span style={{
-              background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              fontSize: '12px',
-              opacity: 0.7,
+            <div style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: 'center',
+              gap: isMobile ? quantumTokens.spacing.xs : quantumTokens.spacing.lg,
+              color: 'rgba(255, 255, 255, 0.5)',
+              fontSize: '13px',
+              textAlign: isMobile ? 'center' : 'left',
             }}>
-              Built with cosmic horror in mind
-            </span>
+              <span>© 2024 Petersen Games. All rights reserved.</span>
+              {!isMobile && <span>•</span>}
+              <a href="#privacy" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</a>
+              {!isMobile && <span>•</span>}
+              <a href="#terms" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</a>
+            </div>
+
+            <div style={{
+              color: 'rgba(255, 255, 255, 0.4)',
+              fontSize: '12px',
+              fontStyle: 'italic',
+              textAlign: isMobile ? 'center' : 'right',
+            }}>
+              <span style={{
+                background: 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontWeight: '500',
+              }}>
+                Built with cosmic horror in mind
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Cosmic fade effect */}
+        {/* Enhanced cosmic fade effect */}
         <div style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '4px',
+          height: '6px',
           background: `linear-gradient(90deg, 
             transparent 0%,
-            rgba(99, 102, 241, 0.3) 25%,
-            rgba(139, 92, 246, 0.5) 50%,
-            rgba(99, 102, 241, 0.3) 75%,
+            rgba(139, 92, 246, 0.4) 20%,
+            rgba(99, 102, 241, 0.6) 40%,
+            rgba(76, 29, 149, 0.8) 50%,
+            rgba(99, 102, 241, 0.6) 60%,
+            rgba(139, 92, 246, 0.4) 80%,
             transparent 100%
           )`,
-          filter: 'blur(1px)',
+          filter: 'blur(2px)',
+          animation: 'cosmic-glow 6s ease-in-out infinite',
         }} />
       </footer>
 
