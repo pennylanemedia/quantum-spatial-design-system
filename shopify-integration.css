@@ -104,12 +104,84 @@ body {
   width: 100%;
 }
 
+/* === PRODUCT GRID SPECIFIC STYLES === */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.product-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+  width: 100%;
+}
+
+.product-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.product-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+/* Featured products grid - larger cards */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-xl);
+  width: 100%;
+}
+
+/* Compact product grid - smaller cards */
+.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
 /* Mobile Responsive */
+@media (max-width: 1024px) {
+  .product-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .grid-2,
   .grid-3,
   .grid-4,
-  .grid-auto {
+  .grid-auto,
+  .product-grid,
+  .product-grid-2,
+  .product-grid-3,
+  .product-grid-4,
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .compact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .compact-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -188,6 +260,38 @@ body {
   height: 200px;
   object-fit: cover;
   border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+/* Product grid variations */
+.featured-grid .product-image {
+  height: 240px;
+}
+
+.compact-grid .product-image {
+  height: 160px;
+}
+
+.product-grid-4 .product-image {
+  height: 180px;
+}
+
+.product-grid-3 .product-image {
+  height: 200px;
+}
+
+.product-grid-2 .product-image {
+  height: 240px;
 }
 
 .product-content {
