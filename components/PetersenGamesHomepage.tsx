@@ -113,16 +113,15 @@ const MenuIcon = () => (
   </svg>
 );
 
-const CloseIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+const CloseIcon = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M18 6L6 18M6 6l12 12" strokeWidth="2" strokeLinecap="round"/>
   </svg>
 );
 
 const CartIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-    <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z"/>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H19M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -138,7 +137,7 @@ const SearchIcon = () => (
   </svg>
 );
 
-// Mobile Menu Component
+// Mobile Dropdown Menu Component
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -151,7 +150,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeCategory
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop with dark oil slick effect */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -163,98 +162,173 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeCategory
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              background: `linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.85) 0%, 
+                rgba(30, 27, 75, 0.8) 25%, 
+                rgba(45, 27, 105, 0.75) 50%, 
+                rgba(30, 27, 75, 0.8) 75%, 
+                rgba(0, 0, 0, 0.85) 100%
+              )`,
+              backdropFilter: 'blur(40px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(40px) saturate(150%)',
               zIndex: 1000,
-              backdropFilter: 'blur(10px)',
             }}
           />
           
-          {/* Menu Panel */}
+          {/* Dropdown Menu Panel */}
           <motion.div
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'tween', duration: 0.3 }}
+            initial={{ y: '-100%', opacity: 0, scale: 0.95 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: '-100%', opacity: 0, scale: 0.95 }}
+            transition={{ 
+              type: 'spring',
+              damping: 25,
+              stiffness: 300,
+              duration: 0.4
+            }}
             style={{
               position: 'fixed',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              width: '300px',
-              maxWidth: '80vw',
-              backgroundColor: liquidGlassTokens.colors.secondary,
-              borderRight: `1px solid ${liquidGlassTokens.colors.separator}`,
+              top: '80px', // Below the nav bar
+              left: '16px',
+              right: '16px',
+              maxHeight: '70vh',
+              background: `linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.95) 0%, 
+                rgba(15, 10, 25, 0.9) 25%, 
+                rgba(30, 27, 75, 0.85) 50%, 
+                rgba(15, 10, 25, 0.9) 75%, 
+                rgba(0, 0, 0, 0.95) 100%
+              )`,
+              backdropFilter: 'blur(60px) saturate(180%) brightness(120%)',
+              WebkitBackdropFilter: 'blur(60px) saturate(180%) brightness(120%)',
+              border: '1px solid rgba(139, 92, 246, 0.3)',
+              borderRadius: '24px',
               zIndex: 1001,
               display: 'flex',
               flexDirection: 'column',
-              backdropFilter: `blur(${liquidGlassTokens.effects.backgroundBlur})`,
+              overflow: 'hidden',
+              boxShadow: `
+                0 32px 64px rgba(0, 0, 0, 0.8),
+                0 16px 32px rgba(45, 27, 105, 0.4),
+                0 0 80px rgba(139, 92, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1)
+              `,
             }}
           >
             {/* Header */}
             <div style={{
-              padding: liquidGlassTokens.spacing.medium,
-              borderBottom: `1px solid ${liquidGlassTokens.colors.separator}`,
+              padding: '20px 24px 16px',
+              borderBottom: '1px solid rgba(139, 92, 246, 0.2)',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
             }}>
               <h2 style={{
-                color: liquidGlassTokens.colors.label,
-                fontSize: liquidGlassTokens.typography.headline.size,
+                color: 'white',
+                fontSize: '18px',
                 fontWeight: '600',
                 margin: 0,
+                background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
               }}>
-                Petersen Games
+                Shop Categories
               </h2>
-              <button
+              <motion.button
                 onClick={onClose}
+                whileTap={{ scale: 0.95 }}
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: liquidGlassTokens.colors.label,
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(139, 92, 246, 0.3)',
+                  borderRadius: '8px',
+                  padding: '8px',
+                  color: 'white',
                   cursor: 'pointer',
-                  padding: liquidGlassTokens.spacing.small,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <CloseIcon />
-              </button>
+              </motion.button>
             </div>
 
             {/* Categories */}
-            <div style={{ flex: 1, overflow: 'auto', padding: liquidGlassTokens.spacing.medium }}>
-              {Object.values(PRODUCT_CATEGORIES).map((category) => (
-                <button
+            <div style={{ 
+              flex: 1, 
+              overflow: 'auto', 
+              padding: '16px 24px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+            }}>
+              {/* All Products */}
+              <motion.button
+                onClick={() => {
+                  onCategorySelect('all');
+                  onClose();
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  padding: '16px',
+                  background: activeCategory === 'all' 
+                    ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(99, 102, 241, 0.2) 100%)'
+                    : 'rgba(255, 255, 255, 0.05)',
+                  border: `1px solid ${activeCategory === 'all' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)'}`,
+                  borderRadius: '16px',
+                  color: activeCategory === 'all' ? 'white' : 'rgba(255, 255, 255, 0.9)',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                  fontWeight: activeCategory === 'all' ? '600' : '500',
+                  textAlign: 'left',
+                  transition: 'all 0.3s ease',
+                  backdropFilter: 'blur(10px)',
+                }}
+              >
+                <span style={{ marginRight: '12px', fontSize: '20px' }}>🛍️</span>
+                All Products
+              </motion.button>
+
+              {Object.values(PRODUCT_CATEGORIES).map((category, index) => (
+                <motion.button
                   key={category.id}
                   onClick={() => {
                     onCategorySelect(category.id);
                     onClose();
                   }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + (index * 0.05) }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
-                    padding: liquidGlassTokens.spacing.medium,
-                    marginBottom: liquidGlassTokens.spacing.small,
-                    backgroundColor: activeCategory === category.id 
-                      ? liquidGlassTokens.colors.systemFill 
-                      : 'transparent',
-                    border: 'none',
-                    borderRadius: liquidGlassTokens.cornerRadius.medium,
-                    color: activeCategory === category.id 
-                      ? liquidGlassTokens.colors.systemBlue 
-                      : liquidGlassTokens.colors.label,
+                    padding: '16px',
+                    background: activeCategory === category.id 
+                      ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(99, 102, 241, 0.2) 100%)'
+                      : 'rgba(255, 255, 255, 0.05)',
+                    border: `1px solid ${activeCategory === category.id ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)'}`,
+                    borderRadius: '16px',
+                    color: activeCategory === category.id ? 'white' : 'rgba(255, 255, 255, 0.9)',
                     cursor: 'pointer',
-                    fontSize: liquidGlassTokens.typography.body.size,
-                    fontWeight: activeCategory === category.id ? '600' : '400',
+                    fontSize: '16px',
+                    fontWeight: activeCategory === category.id ? '600' : '500',
                     textAlign: 'left',
-                    transition: `all ${liquidGlassTokens.animation.duration.short}`,
+                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(10px)',
                   }}
                 >
-                  <span style={{ marginRight: liquidGlassTokens.spacing.small, fontSize: '20px' }}>
+                  <span style={{ marginRight: '12px', fontSize: '20px' }}>
                     {category.icon}
                   </span>
                   {category.name}
-                </button>
+                </motion.button>
               ))}
             </div>
           </motion.div>
@@ -413,6 +487,8 @@ interface PetersenGamesHomepageProps {}
 const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilters, setActiveFilters] = useState<Record<string, string[]>>({});
@@ -437,6 +513,15 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Back to top scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Filter products when category, search, or filters change
@@ -550,6 +635,13 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
     }));
   }, []);
 
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+
   return (
     <div className="quantum-background-enhanced" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Navigation Bar */}
@@ -568,25 +660,30 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
           margin: '0 auto',
           width: '100%',
         }}>
-          {/* Logo - Only on mobile */}
-          {isMobile && (
-            <a href="/" style={{
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-            }}>
-              <img 
-                src="/assets/PetersenGames-horizontal-logo.svg" 
-                alt="Petersen Games"
-                style={{
-                  height: '24px',
-                  width: 'auto',
-                  filter: 'brightness(1.1)',
-                  transition: 'all 0.3s ease',
-                }}
-              />
-            </a>
-          )}
+          {/* Logo - Always visible */}
+          <a href="/" style={{
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            flexShrink: 0,
+          }}>
+            <img 
+              src={isMobile ? "/assets/PetersenGames-square-logo.svg" : "/assets/PetersenGames-horizontal-logo.svg"}
+              alt="Petersen Games"
+              style={{
+                height: isMobile ? '32px' : '40px',
+                width: 'auto',
+                filter: 'brightness(1.1)',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.filter = 'brightness(1.3) drop-shadow(0 0 10px rgba(99, 102, 241, 0.5))';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.filter = 'brightness(1.1)';
+              }}
+            />
+          </a>
 
             {/* Tab Navigation */}
             <div style={{
@@ -672,33 +769,111 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
 
           {/* Search & Cart */}
           <div style={{ display: 'flex', alignItems: 'center', gap: quantumTokens.spacing.sm }}>
-            <div style={{
-              position: 'relative',
-              width: isMobile ? '120px' : '300px',
-            }}>
-              <input
-                type="text"
-                placeholder={isMobile ? "Search..." : "Search products..."}
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                className="input-enhanced"
-                style={{
-                  width: '100%',
-                  paddingLeft: isMobile ? '32px' : '45px',
-                  height: '36px',
-                  fontSize: isMobile ? '14px' : '16px',
-                }}
-              />
-              <div style={{
-                position: 'absolute',
-                left: isMobile ? '8px' : '16px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: quantumTokens.colors.textTertiary,
-              }}>
-                <SearchIcon />
+            {/* Mobile Search - Expandable */}
+            {isMobile ? (
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <AnimatePresence>
+                  {isSearchExpanded ? (
+                    <motion.div
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: '200px', opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <input
+                        type="text"
+                        placeholder="Search products..."
+                        value={searchQuery}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        className="input-enhanced"
+                        style={{
+                          width: '100%',
+                          paddingLeft: '35px',
+                          paddingRight: '35px',
+                          height: '36px',
+                          fontSize: '14px',
+                        }}
+                        autoFocus
+                        onBlur={() => {
+                          if (!searchQuery) {
+                            setIsSearchExpanded(false);
+                          }
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          setSearchQuery('');
+                          setIsSearchExpanded(false);
+                        }}
+                        style={{
+                          position: 'absolute',
+                          right: '8px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          background: 'none',
+                          border: 'none',
+                          color: quantumTokens.colors.textTertiary,
+                          cursor: 'pointer',
+                          padding: '4px',
+                        }}
+                      >
+                        <CloseIcon size={16} />
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <motion.button
+                      onClick={() => setIsSearchExpanded(true)}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(139, 92, 246, 0.3)',
+                        borderRadius: '8px',
+                        padding: '8px',
+                        color: 'white',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: '36px',
+                        height: '36px',
+                      }}
+                    >
+                      <SearchIcon />
+                    </motion.button>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
+            ) : (
+              /* Desktop Search - Always visible */
+              <div style={{
+                position: 'relative',
+                width: '300px',
+              }}>
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  className="input-enhanced"
+                  style={{
+                    width: '100%',
+                    paddingLeft: '45px',
+                    height: '36px',
+                    fontSize: '16px',
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  left: '16px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: quantumTokens.colors.textTertiary,
+                }}>
+                  <SearchIcon />
+                </div>
+              </div>
+            )}
             
             <button
               onClick={openCart}
@@ -761,59 +936,6 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
         </div>
       </nav>
 
-      {/* Mobile Category Selection */}
-      {isMobile && (
-        <div style={{
-          background: 'rgba(0, 0, 0, 0.9)',
-          backdropFilter: 'blur(40px)',
-          borderBottom: '1px solid rgba(139, 92, 246, 0.3)',
-          padding: quantumTokens.spacing.md,
-          overflowX: 'auto',
-          display: 'flex',
-          gap: quantumTokens.spacing.sm,
-          whiteSpace: 'nowrap',
-        }}>
-          <button
-            onClick={() => handleCategorySelect('all')}
-            style={{
-              background: activeCategory === 'all' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(139, 92, 246, 0.3)',
-              borderRadius: '20px',
-              padding: '8px 16px',
-              color: 'white',
-              fontSize: '12px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap',
-              flexShrink: 0,
-            }}
-          >
-            All
-          </button>
-          {Object.values(PRODUCT_CATEGORIES).map((category) => (
-            <button
-              key={category.id}
-              onClick={() => handleCategorySelect(category.id)}
-              style={{
-                background: activeCategory === category.id ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '20px',
-                padding: '8px 16px',
-                color: 'white',
-                fontSize: '12px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-              }}
-            >
-              {category.icon} {category.name}
-            </button>
-          ))}
-        </div>
-      )}
 
       {/* Main Layout */}
       <div style={{
@@ -1901,6 +2023,155 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
           setIsMobileMenuOpen(false);
         }}
       />
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={scrollToTop}
+            style={{
+              position: 'fixed',
+              bottom: isMobile ? '24px' : '32px',
+              right: isMobile ? '24px' : '32px',
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: `linear-gradient(135deg, 
+                rgba(139, 92, 246, 0.9) 0%, 
+                rgba(99, 102, 241, 0.8) 50%, 
+                rgba(76, 29, 149, 0.9) 100%
+              )`,
+              backdropFilter: 'blur(20px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: 'white',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              boxShadow: `
+                0 8px 32px rgba(139, 92, 246, 0.4),
+                0 4px 16px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2)
+              `,
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m18 15-6-6-6 6"/>
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Footer */}
+      <footer style={{
+        marginTop: 'auto',
+        background: `linear-gradient(180deg, 
+          rgba(0, 0, 0, 0) 0%,
+          rgba(15, 10, 25, 0.3) 20%,
+          rgba(30, 27, 75, 0.5) 40%,
+          rgba(45, 27, 105, 0.7) 60%,
+          rgba(30, 27, 75, 0.8) 80%,
+          rgba(0, 0, 0, 0.95) 100%
+        )`,
+        backdropFilter: 'blur(40px) saturate(150%)',
+        WebkitBackdropFilter: 'blur(40px) saturate(150%)',
+        borderTop: '1px solid rgba(139, 92, 246, 0.2)',
+        padding: isMobile ? `${quantumTokens.spacing.xl} ${quantumTokens.spacing.md}` : `${quantumTokens.spacing.xxl} ${quantumTokens.spacing.lg}`,
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: quantumTokens.spacing.lg,
+        }}>
+          {/* Logo */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            opacity: 0.8,
+          }}>
+            <img 
+              src="/assets/PetersenGames-horizontal-logo.svg" 
+              alt="Petersen Games"
+              style={{
+                height: isMobile ? '32px' : '40px',
+                width: 'auto',
+                filter: 'brightness(0.9) saturate(120%)',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.filter = 'brightness(1.1) saturate(150%) drop-shadow(0 0 10px rgba(139, 92, 246, 0.4))';
+                e.currentTarget.parentElement!.style.opacity = '1';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.filter = 'brightness(0.9) saturate(120%)';
+                e.currentTarget.parentElement!.style.opacity = '0.8';
+              }}
+            />
+          </div>
+
+          {/* Copyright */}
+          <div style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: 'center',
+            gap: isMobile ? quantumTokens.spacing.sm : quantumTokens.spacing.lg,
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: isMobile ? '13px' : '14px',
+            textAlign: isMobile ? 'center' : 'right',
+          }}>
+            <span>© 2024 Petersen Games. All rights reserved.</span>
+            {!isMobile && <span>•</span>}
+            <span style={{
+              background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              fontSize: '12px',
+              opacity: 0.7,
+            }}>
+              Built with cosmic horror in mind
+            </span>
+          </div>
+        </div>
+
+        {/* Cosmic fade effect */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '4px',
+          background: `linear-gradient(90deg, 
+            transparent 0%,
+            rgba(99, 102, 241, 0.3) 25%,
+            rgba(139, 92, 246, 0.5) 50%,
+            rgba(99, 102, 241, 0.3) 75%,
+            transparent 100%
+          )`,
+          filter: 'blur(1px)',
+        }} />
+      </footer>
 
       {/* Cart Mini */}
       <CartMini />
