@@ -1,7 +1,6 @@
 /* Quantum Spatial Design System - Global Styles */
 /* Deep glossy glass dark void black deep purple liquid foundation */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -10,33 +9,55 @@
 }
 
 :root {
-  /* Apple HIG Compliant Color System - Deep Indigo Foundation */
+  /* Enhanced Deep Void Black + Oil Slick Purple Foundation */
   --void-black: #000000;
-  --deep-space-indigo: #1C1C1E;
-  --ultra-indigo: #2C2C2E;
-  --card-background: #1C1C1E;
-  --elevated-background: #2C2C2E;
-  --tertiary-background: #3A3A3C;
-  --quaternary-background: #48484A;
+  --deep-space-indigo: #0A0A0F;
+  --ultra-indigo: #15151D;
+  --card-background: rgba(10, 10, 15, 0.85);
+  --elevated-background: rgba(21, 21, 29, 0.9);
+  --tertiary-background: rgba(35, 25, 45, 0.8);
+  --quaternary-background: rgba(45, 35, 55, 0.7);
   
-  /* Apple System Colors - HIG Compliant */
+  /* Enhanced Oil Slick Purple & Indigo Palette */
+  --oil-slick-purple: #2D1B69;
+  --oil-slick-indigo: #1E1B4B;
+  --deep-cosmic-purple: #4C1D95;
+  --cosmic-indigo: #312E81;
+  --subtle-violet: #6366F1;
+  --electric-indigo: #4F46E5;
+  
+  /* Apple System Colors - Enhanced for Deep Theme */
   --apple-blue: #007AFF;
   --apple-green: #30D158;
   --apple-orange: #FF9F0A;
   --apple-red: #FF453A;
-  --apple-purple: #BF5AF2;
-  --apple-pink: #FF2D92;
+  --apple-purple: #8B5CF6;
+  --apple-pink: #EC4899;
   --apple-teal: #64D2FF;
-  --apple-indigo: #5E5CE6;
+  --apple-indigo: #6366F1;
   --apple-mint: #00D7FF;
   --apple-cyan: #32D74B;
   
-  /* Accent Colors - Reduced Pink, More Indigo */
-  --accent-primary: var(--apple-indigo);
+  /* Enhanced Deep Indigo Glassmorphic Color System */
+  --glass-deep-indigo: rgba(30, 27, 75, 0.85);
+  --glass-cosmic-purple: rgba(45, 27, 105, 0.9);
+  --glass-electric-indigo: rgba(79, 70, 229, 0.8);
+  --glass-quantum-purple: rgba(76, 29, 149, 0.88);
+  --glass-void-indigo: rgba(49, 46, 129, 0.92);
+  
+  /* Accent Colors - Deep Void Enhanced */
+  --accent-primary: var(--electric-indigo);
   --accent-secondary: var(--apple-blue);
   --accent-tertiary: var(--apple-teal);
-  --brand-primary: #5E5CE6;
-  --brand-gradient: linear-gradient(135deg, #5E5CE6 0%, #007AFF 100%);
+  --brand-primary: #6366F1;
+  --brand-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #007AFF 100%);
+  --oil-slick-gradient: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.3) 0%, 
+    rgba(30, 27, 75, 0.25) 25%, 
+    rgba(76, 29, 149, 0.2) 50%, 
+    rgba(49, 46, 129, 0.15) 75%, 
+    rgba(45, 27, 105, 0.1) 100%
+  );
   
   /* Text Colors - Excellent Dark Mode */
   --text-primary: #FFFFFF;
@@ -602,4 +623,456 @@ p {
     color: black;
     border: 1px solid black;
   }
+}
+
+/* ========================================
+   ENHANCED GLASSMORPHIC DESIGN SYSTEM
+   Deep Void Black + Oil Slick Purple Integration
+   ======================================== */
+
+/* Enhanced Deep Quantum Background with Maximum Depth */
+.quantum-background-enhanced {
+  background: 
+    radial-gradient(circle at 15% 85%, rgba(45, 27, 105, 0.25) 0%, transparent 60%),
+    radial-gradient(circle at 85% 15%, rgba(76, 29, 149, 0.22) 0%, transparent 60%),
+    radial-gradient(circle at 40% 40%, rgba(49, 46, 129, 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 60% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 70%),
+    radial-gradient(circle at 20% 60%, rgba(79, 70, 229, 0.1) 0%, transparent 70%),
+    linear-gradient(135deg, 
+      rgba(15, 10, 25, 0.95) 0%, 
+      rgba(30, 27, 75, 0.8) 25%, 
+      rgba(45, 27, 105, 0.7) 50%, 
+      rgba(30, 27, 75, 0.8) 75%, 
+      rgba(15, 10, 25, 0.95) 100%
+    ),
+    linear-gradient(180deg, #0F0A19 0%, #1E1B4B 50%, #0F0A19 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Advanced Deep Quantum Glass Cards with Maximum Depth */
+.glass-card-enhanced {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(5, 5, 10, 0.9) 25%, 
+    rgba(8, 8, 12, 0.85) 50%, 
+    rgba(10, 10, 15, 0.8) 75%, 
+    rgba(0, 0, 0, 0.95) 100%
+  ),
+  linear-gradient(45deg, 
+    rgba(15, 10, 25, 0.3) 0%, 
+    rgba(20, 15, 30, 0.25) 30%,
+    rgba(25, 20, 35, 0.2) 70%,
+    rgba(15, 10, 25, 0.15) 100%
+  );
+  backdrop-filter: blur(80px) saturate(150%) brightness(40%);
+  -webkit-backdrop-filter: blur(80px) saturate(150%) brightness(40%);
+  border: 1px solid rgba(76, 29, 149, 0.2);
+  border-radius: 32px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(76, 29, 149, 0.08),
+    0 32px 80px rgba(0, 0, 0, 0.9),
+    0 20px 50px rgba(0, 0, 0, 0.8),
+    0 12px 30px rgba(0, 0, 0, 0.7),
+    0 0 80px rgba(76, 29, 149, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  position: relative;
+}
+
+.glass-card-enhanced:hover {
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.75) 0%, 
+    rgba(76, 29, 149, 0.7) 25%, 
+    rgba(49, 46, 129, 0.65) 50%, 
+    rgba(99, 102, 241, 0.6) 75%, 
+    rgba(45, 27, 105, 0.7) 100%
+  ),
+  linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(139, 92, 246, 0.15) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border-color: rgba(139, 92, 246, 0.8);
+  backdrop-filter: blur(80px) saturate(300%) brightness(130%);
+  box-shadow: 
+    inset 0 4px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(139, 92, 246, 0.3),
+    inset 2px 0 0 rgba(255, 255, 255, 0.15),
+    inset -2px 0 0 rgba(139, 92, 246, 0.2),
+    0 32px 100px rgba(45, 27, 105, 0.8),
+    0 24px 60px rgba(76, 29, 149, 0.7),
+    0 16px 40px rgba(139, 92, 246, 0.6),
+    0 0 200px rgba(139, 92, 246, 0.5),
+    0 0 0 3px rgba(255, 255, 255, 0.25);
+  transform: translateY(-12px) scale(1.02);
+}
+
+/* Enhanced Product Card with Oil Slick Magic */
+.product-card-enhanced {
+  background: var(--oil-slick-gradient);
+  border-radius: 28px;
+  overflow: visible;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 16px 64px var(--glass-oil-slick),
+    0 8px 32px var(--glass-deep-purple);
+  position: relative;
+  transform: translateZ(0);
+}
+
+.product-card-enhanced:hover {
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.4) 0%, 
+    rgba(30, 27, 75, 0.35) 25%, 
+    rgba(76, 29, 149, 0.3) 50%, 
+    rgba(49, 46, 129, 0.25) 75%, 
+    rgba(45, 27, 105, 0.2) 100%
+  );
+  border-color: rgba(139, 92, 246, 0.6);
+  backdrop-filter: blur(60px) saturate(200%);
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.08),
+    0 24px 80px rgba(45, 27, 105, 0.4),
+    0 16px 48px rgba(76, 29, 149, 0.3),
+    0 0 120px rgba(139, 92, 246, 0.25),
+    0 0 0 2px rgba(255, 255, 255, 0.15);
+  transform: translateY(-16px) scale(1.02);
+}
+
+/* Filter Active State with Oil Slick Glow */
+.product-card-enhanced.filter-active {
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.35) 0%, 
+    rgba(76, 29, 149, 0.3) 25%, 
+    rgba(49, 46, 129, 0.25) 50%, 
+    rgba(99, 102, 241, 0.2) 75%, 
+    rgba(45, 27, 105, 0.15) 100%
+  );
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 
+    0 20px 60px rgba(45, 27, 105, 0.4),
+    0 0 80px rgba(139, 92, 246, 0.3),
+    0 0 120px rgba(99, 102, 241, 0.2);
+}
+
+/* Enhanced Button System with Oil Slick Effects */
+.btn-primary-glass {
+  background: linear-gradient(135deg, 
+    rgba(139, 92, 246, 0.25) 0%, 
+    rgba(99, 102, 241, 0.2) 50%, 
+    rgba(76, 29, 149, 0.15) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 20px;
+  color: white;
+  padding: 16px 32px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 
+    0 8px 32px rgba(45, 27, 105, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary-glass:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 92, 246, 0.6);
+  background: linear-gradient(135deg, 
+    rgba(139, 92, 246, 0.35) 0%, 
+    rgba(99, 102, 241, 0.3) 50%, 
+    rgba(76, 29, 149, 0.25) 100%
+  );
+  box-shadow: 
+    0 16px 48px rgba(45, 27, 105, 0.4),
+    0 0 80px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-secondary-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  color: white;
+  padding: 16px 32px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-secondary-glass:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-accent-gradient {
+  background: linear-gradient(135deg, 
+    #6366F1 0%, 
+    #8B5CF6 50%, 
+    #007AFF 100%
+  );
+  border: none;
+  border-radius: 25px;
+  color: white;
+  padding: 20px 32px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(99, 102, 241, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-accent-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(99, 102, 241, 0.4),
+    0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Enhanced Deep Glass Tab Navigation */
+.tab-item-enhanced {
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.7) 0%, 
+    rgba(76, 29, 149, 0.65) 25%, 
+    rgba(49, 46, 129, 0.6) 50%, 
+    rgba(99, 102, 241, 0.55) 75%, 
+    rgba(45, 27, 105, 0.65) 100%
+  ),
+  linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(139, 92, 246, 0.15) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  border-radius: 20px;
+  padding: 12px 24px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  white-space: nowrap;
+  backdrop-filter: blur(40px) saturate(200%) brightness(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(120%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(139, 92, 246, 0.2),
+    0 8px 24px rgba(45, 27, 105, 0.6),
+    0 4px 12px rgba(139, 92, 246, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.tab-item-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(139, 92, 246, 0.2) 50%, 
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+}
+
+.tab-item-enhanced:hover::before {
+  left: 100%;
+}
+
+.tab-item-enhanced:hover {
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.85) 0%, 
+    rgba(76, 29, 149, 0.8) 25%, 
+    rgba(49, 46, 129, 0.75) 50%, 
+    rgba(99, 102, 241, 0.7) 75%, 
+    rgba(45, 27, 105, 0.8) 100%
+  ),
+  linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(139, 92, 246, 0.25) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  backdrop-filter: blur(60px) saturate(250%) brightness(130%);
+  transform: translateY(-4px) translateZ(0);
+  border-color: rgba(139, 92, 246, 0.8);
+  color: white;
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(139, 92, 246, 0.3),
+    0 16px 48px rgba(45, 27, 105, 0.8),
+    0 8px 24px rgba(139, 92, 246, 0.6),
+    0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.tab-item-enhanced.active {
+  background: linear-gradient(135deg, 
+    rgba(76, 29, 149, 0.9) 0%, 
+    rgba(99, 102, 241, 0.85) 25%, 
+    rgba(139, 92, 246, 0.8) 50%, 
+    rgba(99, 102, 241, 0.85) 75%, 
+    rgba(76, 29, 149, 0.9) 100%
+  ),
+  linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.35) 0%, 
+    rgba(139, 92, 246, 0.3) 50%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+  border-color: rgba(139, 92, 246, 0.9);
+  color: white;
+  backdrop-filter: blur(60px) saturate(300%) brightness(140%);
+  box-shadow: 
+    inset 0 4px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(139, 92, 246, 0.4),
+    0 12px 32px rgba(99, 102, 241, 0.8),
+    0 6px 16px rgba(139, 92, 246, 0.7),
+    0 0 60px rgba(139, 92, 246, 0.5),
+    0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced Navigation with Oil Slick Blur */
+.nav-enhanced {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(10, 10, 15, 0.85) 50%, 
+    rgba(45, 27, 105, 0.1) 100%
+  );
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Enhanced Sidebar with Deep Oil Slick */
+.sidebar-enhanced {
+  background: linear-gradient(180deg, 
+    rgba(30, 27, 75, 0.9) 0%, 
+    rgba(45, 27, 105, 0.85) 25%, 
+    rgba(49, 46, 129, 0.8) 50%, 
+    rgba(76, 29, 149, 0.75) 75%, 
+    rgba(30, 27, 75, 0.9) 100%
+  );
+  backdrop-filter: blur(40px) saturate(200%) brightness(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(110%);
+  border-right: 1px solid rgba(76, 29, 149, 0.3);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(76, 29, 149, 0.2),
+    8px 0 32px rgba(45, 27, 105, 0.4),
+    0 0 40px rgba(76, 29, 149, 0.2);
+}
+
+/* Enhanced Input with Oil Slick Focus */
+.input-enhanced {
+  background: var(--oil-slick-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  color: white;
+  padding: 16px 20px;
+  min-height: 44px;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  width: 100%;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.input-enhanced::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input-enhanced:focus {
+  border-color: rgba(99, 102, 241, 0.6);
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 105, 0.4) 0%, 
+    rgba(76, 29, 149, 0.3) 50%, 
+    rgba(99, 102, 241, 0.2) 100%
+  );
+  box-shadow: 
+    0 0 0 3px rgba(99, 102, 241, 0.2),
+    0 8px 32px rgba(45, 27, 105, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Subtle Glow Effects */
+.glow-subtle {
+  position: relative;
+}
+
+.glow-subtle::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(99, 102, 241, 0.3) 0%, 
+    rgba(139, 92, 246, 0.2) 50%, 
+    rgba(99, 102, 241, 0.3) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  blur: 8px;
+}
+
+.glow-subtle:hover::after {
+  opacity: 1;
+}
+
+/* Performance Optimizations */
+.glass-card-enhanced,
+.product-card-enhanced,
+.tab-item-enhanced {
+  will-change: transform, background, box-shadow;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Hardware Acceleration */
+.enhanced-acceleration {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }

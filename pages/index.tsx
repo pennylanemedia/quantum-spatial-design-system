@@ -1,26 +1,40 @@
-// Quantum Spatial Design System - Main Index
+// Quantum Spatial Design System - Enhanced Main Index
 import { useState } from 'react'
 import Link from 'next/link'
+import EnhancedPetersenGamesDashboard from '../components/EnhancedPetersenGamesDashboard'
 
 export default function QuantumSpatialIndex() {
-  const [activeSection, setActiveSection] = useState('wireframes')
+  const [activeSection, setActiveSection] = useState('dashboard')
+
+  if (activeSection === 'dashboard') {
+    return (
+      <div className="quantum-background-enhanced" style={{ height: '100vh', overflow: 'hidden' }}>
+        <EnhancedPetersenGamesDashboard 
+          isMobile={false} 
+          showInternalNav={true}
+          sections={[
+            { id: 'dashboard', label: 'Dashboard' },
+            { id: 'wireframes', label: 'Wireframes' },
+            { id: 'components', label: 'Components' },
+            { id: 'tokens', label: 'Design Tokens' },
+            { id: 'foundation', label: 'Foundation' }
+          ]}
+          onSectionChange={setActiveSection}
+          title="Quantum Spatial Design System"
+          subtitle=""
+        />
+      </div>
+    )
+  }
 
   return (
-    <div className="quantum-background">
+    <div className="quantum-background-enhanced">
       <div className="container section-padding">
-        {/* Header */}
-        <header className="text-center mb-16">
-          <h1 className="text-gradient-quantum mb-4">
-            Quantum Spatial Design System
-          </h1>
-          <p className="text-secondary text-large max-w-3xl mx-auto mb-8">
-            Deep glossy glass dark void black deep purple liquid foundation with Apple HIG acceleration.
-            A comprehensive design system for creating sophisticated, gaming-focused user interfaces.
-          </p>
-          
-          {/* Navigation */}
+        {/* Compact Header */}
+        <header className="text-center mb-8">
           <nav className="flex justify-center gap-4 flex-wrap">
             {[
+              { id: 'dashboard', label: 'Dashboard' },
               { id: 'wireframes', label: 'Wireframes' },
               { id: 'components', label: 'Components' },
               { id: 'tokens', label: 'Design Tokens' },
@@ -29,10 +43,8 @@ export default function QuantumSpatialIndex() {
               <button
                 key={item.id}
                 onClick={() => setActiveSection(item.id)}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                  activeSection === item.id
-                    ? 'bg-white/10 text-white border border-white/20'
-                    : 'text-tertiary hover:text-secondary hover:bg-white/5'
+                className={`tab-item-enhanced ${
+                  activeSection === item.id ? 'active' : ''
                 }`}
               >
                 {item.label}
@@ -41,7 +53,6 @@ export default function QuantumSpatialIndex() {
           </nav>
         </header>
 
-        {/* Content Sections */}
         {activeSection === 'wireframes' && (
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Link href="/wireframes/homepage" className="glass-card p-8 block group">
@@ -72,8 +83,8 @@ export default function QuantumSpatialIndex() {
 
         {activeSection === 'components' && (
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="glass-card p-8">
-              <h3 className="text-xl font-semibold mb-4">Typography System</h3>
+            <div className="glass-card-enhanced p-8">
+              <h3 className="text-xl font-semibold mb-4">Enhanced Typography System</h3>
               <div className="space-y-4">
                 <h1>Heading 1 - Display</h1>
                 <h2>Heading 2 - Large Title</h2>
@@ -85,38 +96,38 @@ export default function QuantumSpatialIndex() {
               </div>
             </div>
             
-            <div className="glass-card p-8">
-              <h3 className="text-xl font-semibold mb-4">Button System</h3>
+            <div className="glass-card-enhanced p-8">
+              <h3 className="text-xl font-semibold mb-4">Enhanced Button System</h3>
               <div className="space-y-4">
-                <button className="btn-primary w-full">Primary Action</button>
-                <button className="btn-secondary w-full">Secondary Action</button>
-                <button className="btn-accent w-full">Accent Action</button>
+                <button className="btn-primary-glass w-full">Enhanced Primary Glass</button>
+                <button className="btn-secondary-glass w-full">Enhanced Secondary Glass</button>
+                <button className="btn-accent-gradient w-full">Enhanced Accent Gradient</button>
                 <div className="pt-4">
                   <input 
                     type="text" 
-                    placeholder="Glass input field..." 
-                    className="input-glass"
+                    placeholder="Enhanced oil slick input..." 
+                    className="input-enhanced"
                   />
                 </div>
               </div>
             </div>
             
-            <div className="glass-card p-8">
-              <h3 className="text-xl font-semibold mb-4">Color Palette</h3>
+            <div className="glass-card-enhanced p-8">
+              <h3 className="text-xl font-semibold mb-4">Enhanced Oil Slick Palette</h3>
               <div className="grid grid-cols-4 gap-3">
                 {[
-                  { name: 'Void Black', color: '#0A0621' },
-                  { name: 'Deep Space', color: '#131A36' },
-                  { name: 'Quantum Violet', color: '#6A3093' },
-                  { name: 'Rose Energy', color: '#BF4080' },
-                  { name: 'Subtle Cyan', color: '#5AC8FA' },
-                  { name: 'Apple Blue', color: '#007AFF' },
-                  { name: 'Quantum Pink', color: '#FF2D55' },
-                  { name: 'Cosmic Aqua', color: '#00FFC8' }
+                  { name: 'Void Black', color: '#000000' },
+                  { name: 'Deep Space', color: '#0A0A0F' },
+                  { name: 'Oil Slick Purple', color: '#2D1B69' },
+                  { name: 'Oil Slick Indigo', color: '#1E1B4B' },
+                  { name: 'Deep Cosmic', color: '#4C1D95' },
+                  { name: 'Cosmic Indigo', color: '#312E81' },
+                  { name: 'Electric Indigo', color: '#4F46E5' },
+                  { name: 'Subtle Violet', color: '#6366F1' }
                 ].map((color) => (
                   <div key={color.name} className="text-center">
                     <div 
-                      className="w-full h-12 rounded-lg mb-2"
+                      className="w-full h-12 rounded-lg mb-2 glow-subtle"
                       style={{ backgroundColor: color.color }}
                     />
                     <p className="text-xs text-tertiary">{color.name}</p>
@@ -125,8 +136,8 @@ export default function QuantumSpatialIndex() {
               </div>
             </div>
             
-            <div className="glass-card p-8">
-              <h3 className="text-xl font-semibold mb-4">Text Contrast Levels</h3>
+            <div className="glass-card-enhanced p-8">
+              <h3 className="text-xl font-semibold mb-4">Enhanced Text Contrast Levels</h3>
               <div className="space-y-2">
                 <p className="text-primary">Primary text (100% white)</p>
                 <p className="text-secondary">Secondary text (85% opacity)</p>
@@ -141,31 +152,34 @@ export default function QuantumSpatialIndex() {
 
         {activeSection === 'foundation' && (
           <section className="space-y-8">
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-semibold mb-6">Quantum Spatial Foundation</h3>
+            <div className="glass-card-enhanced p-8">
+              <h3 className="text-2xl font-semibold mb-6">Enhanced Oil Slick Foundation</h3>
               <div className="prose prose-invert max-w-none">
                 <p className="text-secondary">
-                  The Quantum Spatial Design System is built on a foundation of <strong>deep glossy glass</strong> 
-                  elements floating in a <strong>dark void black deep purple liquid</strong> environment. 
-                  This creates an immersive, sophisticated aesthetic perfect for gaming and high-end applications.
+                  The Enhanced Quantum Spatial Design System is built on a foundation of <strong>deep glossy glass</strong> 
+                  elements floating in a <strong>dark void black oil slick purple and indigo liquid</strong> environment. 
+                  This creates an immersive, sophisticated aesthetic perfect for gaming and high-end applications with 
+                  subtle glows and rich depth.
                 </p>
                 
-                <h4 className="text-lg font-semibold mt-6 mb-3">Core Principles</h4>
+                <h4 className="text-lg font-semibold mt-6 mb-3">Enhanced Core Principles</h4>
                 <ul className="text-secondary space-y-2">
-                  <li><strong>Glassmorphism:</strong> Multi-layer transparency with backdrop blur effects</li>
-                  <li><strong>Quantum Depth:</strong> Layered gradients creating dimensional space</li>
-                  <li><strong>Apple HIG Acceleration:</strong> Native font rendering and smooth animations</li>
-                  <li><strong>Excellent Dark Mode:</strong> Optimized contrast ratios for readability</li>
-                  <li><strong>Spatial Awareness:</strong> Elements that feel suspended in liquid space</li>
+                  <li><strong>Oil Slick Glassmorphism:</strong> Multi-layer transparency with enhanced backdrop blur effects</li>
+                  <li><strong>Deep Void Quantum Depth:</strong> Layered gradients creating dimensional oil slick space</li>
+                  <li><strong>Apple HIG M4 Acceleration:</strong> Neural Engine optimized rendering and smooth animations</li>
+                  <li><strong>Excellent Deep Dark Mode:</strong> Enhanced contrast ratios with oil slick accents</li>
+                  <li><strong>Oil Slick Spatial Awareness:</strong> Elements suspended in liquid purple-indigo space</li>
+                  <li><strong>Subtle Glow Enhancement:</strong> Not too bright but beautifully rich</li>
                 </ul>
                 
-                <h4 className="text-lg font-semibold mt-6 mb-3">Technical Implementation</h4>
+                <h4 className="text-lg font-semibold mt-6 mb-3">Enhanced Technical Implementation</h4>
                 <ul className="text-secondary space-y-2">
-                  <li><strong>SF Pro Display/Text:</strong> Apple's system fonts for optimal readability</li>
-                  <li><strong>Backdrop Filter:</strong> Hardware-accelerated blur effects</li>
-                  <li><strong>CSS Custom Properties:</strong> Systematic color and spacing tokens</li>
-                  <li><strong>Responsive Typography:</strong> Fluid scaling with clamp() functions</li>
-                  <li><strong>Accessibility:</strong> High contrast and reduced motion support</li>
+                  <li><strong>SF Pro Display/Text:</strong> Apple's system fonts with enhanced dark mode readability</li>
+                  <li><strong>Enhanced Backdrop Filter:</strong> 60px blur with 200% saturation for oil slick effect</li>
+                  <li><strong>Oil Slick CSS Variables:</strong> Deep purple and indigo color tokens</li>
+                  <li><strong>Hardware Acceleration:</strong> translateZ(0) for optimal performance</li>
+                  <li><strong>Enhanced Accessibility:</strong> High contrast with subtle glow support</li>
+                  <li><strong>M4 Neural Engine:</strong> Optimized for Apple Silicon performance</li>
                 </ul>
               </div>
             </div>
