@@ -1076,3 +1076,153 @@ p {
   -webkit-transform: translateZ(0);
   will-change: transform;
 }
+
+/* Cthulhu Hero Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes cosmic-glow {
+  0%, 100% {
+    text-shadow: 0 0 40px rgba(99, 102, 241, 0.5), 0 0 80px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 60px rgba(99, 102, 241, 0.7), 0 0 120px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* Horror Overlay Effect */
+.product-card-enhanced:hover .horror-overlay {
+  opacity: 0.3 !important;
+}
+
+/* Enhanced scroll bar for product carousel */
+.product-carousel-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.product-carousel-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.product-carousel-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  border-radius: 4px;
+}
+
+.product-carousel-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+}
+
+/* Cosmic horror button effects */
+.cosmic-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cosmic-button:hover::before {
+  left: 100%;
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+  .quantum-background-enhanced {
+    padding: 0;
+  }
+
+  .nav-enhanced {
+    padding: 12px 16px !important;
+  }
+
+  .sidebar-enhanced {
+    display: none !important;
+  }
+
+  .product-carousel-scroll {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .product-card-enhanced {
+    min-width: 280px !important;
+    width: 280px !important;
+  }
+
+  .glass-card-enhanced {
+    margin: 8px !important;
+    padding: 16px !important;
+  }
+
+  .input-enhanced {
+    font-size: 16px !important; /* Prevent zoom on iOS */
+  }
+
+  /* Hero section mobile optimizations */
+  h1 {
+    font-size: clamp(1.8rem, 8vw, 3rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Newsletter section mobile */
+  .cosmic-button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Mobile scrollbar styles */
+  .product-carousel-scroll::-webkit-scrollbar {
+    height: 4px !important;
+  }
+
+  /* Touch-friendly tap targets */
+  button,
+  .btn-primary-glass,
+  .btn-secondary-glass {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .nav-enhanced {
+    padding: 8px 12px !important;
+  }
+
+  .product-card-enhanced {
+    min-width: 260px !important;
+    width: 260px !important;
+  }
+
+  /* Even smaller cards on very small screens */
+  .glass-card-enhanced {
+    padding: 12px !important;
+  }
+}
+
+/* Landscape phone optimization */
+@media (max-width: 896px) and (orientation: landscape) {
+  section[style*="height: 70vh"] {
+    height: 90vh !important;
+    min-height: 400px !important;
+  }
+}
