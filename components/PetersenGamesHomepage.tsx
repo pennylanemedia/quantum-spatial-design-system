@@ -959,7 +959,16 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
         top: 0,
         zIndex: 1000,
         padding: quantumTokens.spacing.md,
-        borderBottom: `1px solid ${quantumTokens.colors.border}`,
+        background: `linear-gradient(180deg, 
+          rgba(0, 0, 0, 0.95) 0%,
+          rgba(15, 10, 25, 0.9) 40%,
+          rgba(30, 27, 75, 0.7) 70%,
+          rgba(0, 0, 0, 0.4) 90%,
+          transparent 100%
+        )`,
+        backdropFilter: 'blur(40px) saturate(150%)',
+        WebkitBackdropFilter: 'blur(40px) saturate(150%)',
+        borderBottom: 'none',
       }}>
         <div style={{
           display: 'flex',
@@ -977,14 +986,14 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
             flexShrink: 0,
           }}>
             <img 
-              src="/assets/PetersenGames-horizontal-logo.svg"
+              src="./assets/PetersenGames-horizontal-logo.svg"
               alt="Petersen Games"
               style={{
                 height: isMobile ? '28px' : '40px',
                 width: 'auto',
-                filter: 'brightness(1.2) contrast(1.1)',
+                filter: 'brightness(1.3) contrast(1.2)',
                 transition: 'all 0.3s ease',
-                maxWidth: isMobile ? '120px' : 'none',
+                maxWidth: isMobile ? '140px' : 'none',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.filter = 'brightness(1.4) drop-shadow(0 0 12px rgba(99, 102, 241, 0.6))';
@@ -1536,6 +1545,53 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                       cursor: 'pointer',
                       flexShrink: 0,
                       scrollSnapAlign: 'start',
+                      background: `linear-gradient(135deg, 
+                        rgba(255, 255, 255, 0.15) 0%, 
+                        rgba(99, 102, 241, 0.1) 30%, 
+                        rgba(139, 92, 246, 0.08) 70%, 
+                        rgba(255, 255, 255, 0.12) 100%
+                      )`,
+                      backdropFilter: 'blur(30px) saturate(160%)',
+                      WebkitBackdropFilter: 'blur(30px) saturate(160%)',
+                      border: '1px solid rgba(255, 255, 255, 0.25)',
+                      borderRadius: '24px',
+                      boxShadow: `
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                        0 12px 40px rgba(99, 102, 241, 0.2),
+                        0 6px 20px rgba(255, 255, 255, 0.1),
+                        0 0 0 1px rgba(255, 255, 255, 0.08)
+                      `,
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = `linear-gradient(135deg, 
+                        rgba(255, 255, 255, 0.22) 0%, 
+                        rgba(99, 102, 241, 0.15) 30%, 
+                        rgba(139, 92, 246, 0.12) 70%, 
+                        rgba(255, 255, 255, 0.18) 100%
+                      )`;
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+                      e.currentTarget.style.boxShadow = `
+                        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                        0 16px 60px rgba(99, 102, 241, 0.3),
+                        0 8px 30px rgba(255, 255, 255, 0.15),
+                        0 0 0 1px rgba(255, 255, 255, 0.12)
+                      `;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = `linear-gradient(135deg, 
+                        rgba(255, 255, 255, 0.15) 0%, 
+                        rgba(99, 102, 241, 0.1) 30%, 
+                        rgba(139, 92, 246, 0.08) 70%, 
+                        rgba(255, 255, 255, 0.12) 100%
+                      )`;
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+                      e.currentTarget.style.boxShadow = `
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                        0 12px 40px rgba(99, 102, 241, 0.2),
+                        0 6px 20px rgba(255, 255, 255, 0.1),
+                        0 0 0 1px rgba(255, 255, 255, 0.08)
+                      `;
                     }}
                   >
                     <div style={{
@@ -1672,8 +1728,22 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
               }}>
                 {Array.from({ length: 8 }).map((_, index) => (
                   <div key={index} className="glass-card-enhanced" style={{ 
-                    opacity: 0.6,
+                    opacity: 0.8,
                     padding: quantumTokens.spacing.lg,
+                    background: `linear-gradient(135deg, 
+                      rgba(255, 255, 255, 0.15) 0%, 
+                      rgba(99, 102, 241, 0.1) 50%, 
+                      rgba(139, 92, 246, 0.08) 100%
+                    )`,
+                    backdropFilter: 'blur(20px) saturate(150%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '16px',
+                    boxShadow: `
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                      0 8px 32px rgba(99, 102, 241, 0.2),
+                      0 4px 16px rgba(255, 255, 255, 0.1)
+                    `,
                   }}>
                     <div style={{
                       width: '100%',
@@ -1773,6 +1843,53 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                       style={{
                         padding: quantumTokens.spacing.lg,
                         cursor: 'pointer',
+                        background: `linear-gradient(135deg, 
+                          rgba(255, 255, 255, 0.12) 0%, 
+                          rgba(99, 102, 241, 0.08) 30%, 
+                          rgba(139, 92, 246, 0.06) 70%, 
+                          rgba(255, 255, 255, 0.08) 100%
+                        )`,
+                        backdropFilter: 'blur(25px) saturate(150%)',
+                        WebkitBackdropFilter: 'blur(25px) saturate(150%)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '20px',
+                        boxShadow: `
+                          inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                          0 8px 32px rgba(99, 102, 241, 0.15),
+                          0 4px 16px rgba(255, 255, 255, 0.08),
+                          0 0 0 1px rgba(255, 255, 255, 0.05)
+                        `,
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = `linear-gradient(135deg, 
+                          rgba(255, 255, 255, 0.18) 0%, 
+                          rgba(99, 102, 241, 0.12) 30%, 
+                          rgba(139, 92, 246, 0.10) 70%, 
+                          rgba(255, 255, 255, 0.12) 100%
+                        )`;
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                        e.currentTarget.style.boxShadow = `
+                          inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                          0 12px 48px rgba(99, 102, 241, 0.25),
+                          0 8px 24px rgba(255, 255, 255, 0.12),
+                          0 0 0 1px rgba(255, 255, 255, 0.1)
+                        `;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = `linear-gradient(135deg, 
+                          rgba(255, 255, 255, 0.12) 0%, 
+                          rgba(99, 102, 241, 0.08) 30%, 
+                          rgba(139, 92, 246, 0.06) 70%, 
+                          rgba(255, 255, 255, 0.08) 100%
+                        )`;
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                        e.currentTarget.style.boxShadow = `
+                          inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                          0 8px 32px rgba(99, 102, 241, 0.15),
+                          0 4px 16px rgba(255, 255, 255, 0.08),
+                          0 0 0 1px rgba(255, 255, 255, 0.05)
+                        `;
                       }}
                     >
                       <div style={{
