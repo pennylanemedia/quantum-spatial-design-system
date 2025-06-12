@@ -156,38 +156,38 @@ export default function ProductGridWireframe() {
         </div>
       </header>
 
-      <div className="container py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="container hig-section">
+        <div className="hig-sidebar-layout">
           {/* Sidebar Filters */}
-          <div className={`lg:w-80 space-y-6 ${showFilters ? 'block' : 'hidden lg:block'}`}>
+          <div className={`hig-stack-large ${showFilters ? 'block' : 'hidden lg:block'}`}>
             {/* Categories */}
-            <div className="glass-card p-6">
-              <h3 className="text-lg font-semibold mb-4">Categories</h3>
-              <div className="space-y-2">
+            <div className="glass-card-elevated p-6">
+              <h3 className="hig-headline mb-4">Categories</h3>
+              <div className="hig-stack-small">
                 {categories.map(category => (
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`w-full flex items-center justify-between p-3 rounded-lg transition-all ${
+                    className={`w-full flex items-center justify-between p-3 rounded-12 transition-all min-h-44 ${
                       activeCategory === category.id
-                        ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                        : 'bg-white/5 hover:bg-white/10 text-secondary'
+                        ? 'bg-apple-blue/20 text-apple-blue border border-apple-blue/30'
+                        : 'bg-elevated-background hover:bg-tertiary-background text-secondary'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
                       <span className="text-lg">{category.icon}</span>
-                      <span className="font-medium">{category.label}</span>
+                      <span className="hig-callout font-medium">{category.label}</span>
                     </div>
-                    <span className="text-xs text-tertiary">({category.count})</span>
+                    <span className="hig-caption">({category.count})</span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Price Range */}
-            <div className="glass-card p-6">
-              <h3 className="text-lg font-semibold mb-4">Price Range</h3>
-              <div className="space-y-4">
+            <div className="glass-card-elevated p-6">
+              <h3 className="hig-headline mb-4">Price Range</h3>
+              <div className="hig-stack">
                 <input
                   type="range"
                   min="0"
@@ -196,22 +196,22 @@ export default function ProductGridWireframe() {
                   onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                   className="w-full accent-purple-500"
                 />
-                <div className="flex justify-between text-sm text-tertiary">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
+                <div className="flex justify-between">
+                  <span className="hig-subheadline">${priceRange[0]}</span>
+                  <span className="hig-subheadline">${priceRange[1]}</span>
                 </div>
               </div>
             </div>
 
             {/* Game Stats Filters */}
-            <div className="glass-card p-6">
-              <h3 className="text-lg font-semibold mb-4">Game Stats</h3>
-              <div className="space-y-4">
+            <div className="glass-card-elevated p-6">
+              <h3 className="hig-headline mb-4">Game Stats</h3>
+              <div className="hig-stack">
                 <div>
-                  <label className="block text-sm text-tertiary mb-2">Player Count</label>
+                  <label className="hig-subheadline mb-2">Player Count</label>
                   <div className="flex flex-wrap gap-2">
                     {['1', '2', '3', '4', '5+'].map(count => (
-                      <button key={count} className="px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-sm">
+                      <button key={count} className="px-3 py-2 rounded-full bg-elevated-background hover:bg-tertiary-background hig-footnote min-h-32">
                         {count}
                       </button>
                     ))}
@@ -219,10 +219,10 @@ export default function ProductGridWireframe() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm text-tertiary mb-2">Play Time</label>
+                  <label className="hig-subheadline mb-2">Play Time</label>
                   <div className="flex flex-wrap gap-2">
                     {['<30m', '30-60m', '60-90m', '90m+'].map(time => (
-                      <button key={time} className="px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-sm">
+                      <button key={time} className="px-3 py-2 rounded-full bg-elevated-background hover:bg-tertiary-background hig-footnote min-h-32">
                         {time}
                       </button>
                     ))}
@@ -232,13 +232,13 @@ export default function ProductGridWireframe() {
             </div>
 
             {/* Special Filters */}
-            <div className="glass-card p-6">
-              <h3 className="text-lg font-semibold mb-4">Special</h3>
-              <div className="space-y-2">
+            <div className="glass-card-elevated p-6">
+              <h3 className="hig-headline mb-4">Special</h3>
+              <div className="hig-stack-small">
                 {['On Sale', 'New Releases', 'Staff Picks', 'In Stock Only'].map(filter => (
-                  <label key={filter} className="flex items-center space-x-3 cursor-pointer">
-                    <input type="checkbox" className="accent-purple-500" />
-                    <span className="text-sm">{filter}</span>
+                  <label key={filter} className="hig-hstack cursor-pointer p-2 rounded-lg hover:bg-elevated-background">
+                    <input type="checkbox" className="accent-apple-blue" />
+                    <span className="hig-callout">{filter}</span>
                   </label>
                 ))}
               </div>
@@ -248,8 +248,8 @@ export default function ProductGridWireframe() {
           {/* Main Content */}
           <div className="flex-1">
             {/* Search & Controls */}
-            <div className="glass-card p-6 mb-8">
-              <div className="flex flex-col md:flex-row gap-4">
+            <div className="glass-card-elevated p-6 mb-8">
+              <div className="hig-stack md:hig-hstack">
                 {/* Search */}
                 <div className="flex-1 relative">
                   <input
@@ -266,24 +266,24 @@ export default function ProductGridWireframe() {
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => setShowFilters(!showFilters)}
-                    className="lg:hidden btn-secondary px-4"
+                    className="lg:hidden btn-secondary"
                   >
                     🔧 Filters
                   </button>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="hig-hstack-small">
                     <button
                       onClick={() => setViewMode('grid')}
-                      className={`p-2 rounded-lg transition-colors ${
-                        viewMode === 'grid' ? 'bg-purple-500/20 text-purple-300' : 'bg-white/5 hover:bg-white/10'
+                      className={`p-3 rounded-lg transition-colors min-h-44 ${
+                        viewMode === 'grid' ? 'bg-apple-blue/20 text-apple-blue' : 'bg-elevated-background hover:bg-tertiary-background'
                       }`}
                     >
                       ⬜
                     </button>
                     <button
                       onClick={() => setViewMode('list')}
-                      className={`p-2 rounded-lg transition-colors ${
-                        viewMode === 'list' ? 'bg-purple-500/20 text-purple-300' : 'bg-white/5 hover:bg-white/10'
+                      className={`p-3 rounded-lg transition-colors min-h-44 ${
+                        viewMode === 'list' ? 'bg-apple-blue/20 text-apple-blue' : 'bg-elevated-background hover:bg-tertiary-background'
                       }`}
                     >
                       ☰
@@ -305,12 +305,12 @@ export default function ProductGridWireframe() {
               </div>
 
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
-                <p className="text-tertiary">
+                <p className="hig-subheadline">
                   Showing {sortedProducts.length} of {products.length} games
                 </p>
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-tertiary">Per page:</span>
-                  <select className="bg-transparent text-sm">
+                <div className="hig-hstack-small">
+                  <span className="hig-subheadline">Per page:</span>
+                  <select className="bg-transparent hig-subheadline">
                     <option>12</option>
                     <option>24</option>
                     <option>48</option>

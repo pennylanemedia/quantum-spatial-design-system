@@ -10,32 +10,33 @@
 }
 
 :root {
-  /* Quantum Spatial Color System */
-  --void-black: #0A0621;
-  --deep-space-indigo: #131A36;
-  --ultra-indigo: #1E1F5C;
-  --dimensional-eggplant: #331F4A;
-  --midnight-richness: #0D0D15;
-  --quantum-violet: #6A3093;
-  --ultra-violet: #613FE7;
+  /* Apple HIG Compliant Color System - Deep Indigo Foundation */
+  --void-black: #000000;
+  --deep-space-indigo: #1C1C1E;
+  --ultra-indigo: #2C2C2E;
+  --card-background: #1C1C1E;
+  --elevated-background: #2C2C2E;
+  --tertiary-background: #3A3A3C;
+  --quaternary-background: #48484A;
   
-  /* Accent Colors */
-  --subtle-aqua: #00FFC8;
-  --subtle-cyan: #5AC8FA;
-  --dimensional-teal: #126D71;
-  --rose-energy: #BF4080;
-  --quantum-pulse-pink: #FF2D55;
-  --dimensional-orange: #FF6B6B;
-  
-  /* Apple System Colors */
+  /* Apple System Colors - HIG Compliant */
   --apple-blue: #007AFF;
-  --apple-green: #34C759;
-  --apple-orange: #FF9500;
-  --apple-red: #FF3B30;
-  --apple-purple: #AF52DE;
+  --apple-green: #30D158;
+  --apple-orange: #FF9F0A;
+  --apple-red: #FF453A;
+  --apple-purple: #BF5AF2;
   --apple-pink: #FF2D92;
-  --apple-teal: #5AC8FA;
-  --apple-indigo: #5856D6;
+  --apple-teal: #64D2FF;
+  --apple-indigo: #5E5CE6;
+  --apple-mint: #00D7FF;
+  --apple-cyan: #32D74B;
+  
+  /* Accent Colors - Reduced Pink, More Indigo */
+  --accent-primary: var(--apple-indigo);
+  --accent-secondary: var(--apple-blue);
+  --accent-tertiary: var(--apple-teal);
+  --brand-primary: #5E5CE6;
+  --brand-gradient: linear-gradient(135deg, #5E5CE6 0%, #007AFF 100%);
   
   /* Text Colors - Excellent Dark Mode */
   --text-primary: #FFFFFF;
@@ -185,143 +186,208 @@ p {
   color: transparent;
 }
 
-/* Quantum Spatial Background Foundation */
+/* Apple HIG Background Foundation */
 .quantum-background {
-  background: radial-gradient(circle at 20% 80%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.25) 0%, transparent 50%),
-              radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
-              linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 30, 0.95) 100%);
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(94, 92, 230, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 122, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(100, 210, 255, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #000000 0%, #1C1C1E 100%);
   min-height: 100vh;
   position: relative;
 }
 
-/* Glassmorphic Components */
+/* Apple HIG Compliant Cards */
 .glass-card {
-  background: linear-gradient(135deg, 
-    rgba(147, 51, 234, 0.15) 0%, 
-    rgba(79, 70, 229, 0.12) 25%, 
-    rgba(236, 72, 153, 0.10) 50%, 
-    rgba(245, 158, 11, 0.12) 75%, 
-    rgba(147, 51, 234, 0.15) 100%
-  ),
-  linear-gradient(45deg, 
-    rgba(255, 255, 255, 0.05) 0%, 
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 28px;
+  background: var(--card-background);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow: 
-    inset 0 2px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 16px 64px rgba(147, 51, 234, 0.3),
-    0 8px 32px rgba(236, 72, 153, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.glass-card-elevated {
+  background: var(--elevated-background);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    0 12px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .glass-card:hover {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 
-    inset 0 2px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
-    0 24px 80px rgba(147, 51, 234, 0.4),
-    0 16px 48px rgba(236, 72, 153, 0.3),
-    0 0 120px rgba(236, 72, 153, 0.25);
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    0 12px 32px rgba(0, 0, 0, 0.2),
+    0 24px 48px rgba(94, 92, 230, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
-/* Button System */
+.glass-card-elevated:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 16px 40px rgba(0, 0, 0, 0.25),
+    0 32px 64px rgba(94, 92, 230, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Apple HIG Button System */
 .btn-primary {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(147, 51, 234, 0.2));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(236, 72, 153, 0.4);
+  background: var(--apple-blue);
+  border: none;
   border-radius: 12px;
-  color: var(--text-primary);
-  padding: 16px 32px;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  min-height: 44px;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 17px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary-large {
+  background: var(--apple-blue);
+  border: none;
+  border-radius: 16px;
+  color: #FFFFFF;
+  padding: 16px 32px;
+  min-height: 50px;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25);
 }
 
 .btn-primary:hover {
+  background: #0056CC;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary:active {
+  background: #004499;
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary-large:hover {
+  background: #0056CC;
   transform: translateY(-2px);
-  border-color: rgba(236, 72, 153, 0.6);
-  box-shadow: 0 12px 40px rgba(236, 72, 153, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+}
+
+.btn-primary-large:active {
+  background: #004499;
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.2);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--elevated-background);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  color: var(--text-primary);
-  padding: 16px 32px;
+  color: var(--apple-blue);
+  padding: 12px 24px;
+  min-height: 44px;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 17px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+  background: var(--tertiary-background);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:active {
+  background: var(--quaternary-background);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .btn-accent {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--brand-gradient);
   border: none;
-  border-radius: 50px;
-  color: var(--text-primary);
-  padding: 16px 32px;
+  border-radius: 25px;
+  color: #FFFFFF;
+  padding: 14px 28px;
+  min-height: 44px;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 17px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(94, 92, 230, 0.25);
 }
 
 .btn-accent:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 48px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(94, 92, 230, 0.35);
+  opacity: 0.9;
 }
 
-/* Input System */
+.btn-accent:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(94, 92, 230, 0.25);
+  opacity: 0.8;
+}
+
+/* Apple HIG Input System */
 .input-glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--elevated-background);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   color: var(--text-primary);
   padding: 12px 16px;
+  min-height: 44px;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  font-size: 17px;
+  transition: all 0.15s ease;
   outline: none;
   width: 100%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .input-glass::placeholder {
@@ -330,7 +396,144 @@ p {
 
 .input-glass:focus {
   border-color: var(--apple-blue);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(0, 122, 255, 0.2);
+  background: var(--tertiary-background);
+}
+
+/* Apple HIG Layout Components */
+.hig-section {
+  padding: 32px 0;
+}
+
+.hig-section-large {
+  padding: 64px 0;
+}
+
+.hig-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hig-stack-small {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hig-stack-large {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hig-hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.hig-hstack-small {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.hig-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.hig-grid-tight {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.hig-sidebar-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+}
+
+@media (max-width: 1024px) {
+  .hig-sidebar-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Apple HIG Typography Components */
+.hig-title-large {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.hig-title {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.hig-headline {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.hig-body {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  color: var(--text-secondary);
+}
+
+.hig-callout {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.hig-subheadline {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--text-tertiary);
+}
+
+.hig-footnote {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-tertiary);
+}
+
+.hig-caption {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--text-quaternary);
 }
 
 /* Utilities */
