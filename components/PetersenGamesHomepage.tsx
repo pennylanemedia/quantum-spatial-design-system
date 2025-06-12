@@ -977,19 +977,20 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
             flexShrink: 0,
           }}>
             <img 
-              src={isMobile ? "/assets/PetersenGames-square-logo.svg" : "/assets/PetersenGames-horizontal-logo.svg"}
+              src="/assets/PetersenGames-horizontal-logo.svg"
               alt="Petersen Games"
               style={{
-                height: isMobile ? '32px' : '40px',
+                height: isMobile ? '28px' : '40px',
                 width: 'auto',
-                filter: 'brightness(1.1)',
+                filter: 'brightness(1.2) contrast(1.1)',
                 transition: 'all 0.3s ease',
+                maxWidth: isMobile ? '120px' : 'none',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.filter = 'brightness(1.3) drop-shadow(0 0 10px rgba(99, 102, 241, 0.5))';
+                e.currentTarget.style.filter = 'brightness(1.4) drop-shadow(0 0 12px rgba(99, 102, 241, 0.6))';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.filter = 'brightness(1.1)';
+                e.currentTarget.style.filter = 'brightness(1.2) contrast(1.1)';
               }}
             />
           </a>
@@ -997,16 +998,16 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
 
           {/* Search & Cart */}
           <div style={{ display: 'flex', alignItems: 'center', gap: quantumTokens.spacing.sm }}>
-            {/* Mobile Search - Expandable */}
+            {/* Mobile Search - Expandable with Opacity Animation */}
             {isMobile ? (
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                 <AnimatePresence>
                   {isSearchExpanded ? (
                     <motion.div
-                      initial={{ width: 0, opacity: 0 }}
-                      animate={{ width: '200px', opacity: 1 }}
-                      exit={{ width: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      initial={{ width: 0, opacity: 0, scale: 0.8 }}
+                      animate={{ width: '220px', opacity: 1, scale: 1 }}
+                      exit={{ width: 0, opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.4, ease: 'easeInOut' }}
                       style={{ overflow: 'hidden' }}
                     >
                       <input
@@ -1014,13 +1015,23 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                         placeholder="Search products..."
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}
-                        className="input-enhanced"
                         style={{
                           width: '100%',
-                          paddingLeft: '35px',
-                          paddingRight: '35px',
+                          padding: '10px 40px 10px 16px',
                           height: '36px',
                           fontSize: '14px',
+                          background: `linear-gradient(135deg, 
+                            rgba(255, 255, 255, 0.15) 0%, 
+                            rgba(99, 102, 241, 0.1) 100%
+                          )`,
+                          border: '1px solid rgba(99, 102, 241, 0.4)',
+                          borderRadius: '18px',
+                          color: 'white',
+                          outline: 'none',
+                          backdropFilter: 'blur(20px)',
+                          WebkitBackdropFilter: 'blur(20px)',
+                          transition: 'all 0.3s ease',
+                          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                         }}
                         autoFocus
                         onBlur={() => {
@@ -1028,46 +1039,80 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                             setIsSearchExpanded(false);
                           }
                         }}
+                        onFocus={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.7)';
+                          e.currentTarget.style.boxShadow = '0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+                        }}
+                        onBlur={(e) => {
+                          if (!searchQuery) {
+                            setIsSearchExpanded(false);
+                          }
+                          e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+                          e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+                        }}
                       />
-                      <button
+                      <motion.button
                         onClick={() => {
                           setSearchQuery('');
                           setIsSearchExpanded(false);
                         }}
+                        whileTap={{ scale: 0.9 }}
                         style={{
                           position: 'absolute',
                           right: '8px',
                           top: '50%',
                           transform: 'translateY(-50%)',
-                          background: 'none',
-                          border: 'none',
-                          color: quantumTokens.colors.textTertiary,
+                          background: 'rgba(255, 255, 255, 0.1)',
+                          border: '1px solid rgba(99, 102, 241, 0.3)',
+                          borderRadius: '50%',
+                          color: 'rgba(255, 255, 255, 0.7)',
                           cursor: 'pointer',
                           padding: '4px',
+                          width: '24px',
+                          height: '24px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          transition: 'all 0.2s ease',
                         }}
                       >
-                        <CloseIcon size={16} />
-                      </button>
+                        <CloseIcon size={12} />
+                      </motion.button>
                     </motion.div>
                   ) : (
                     <motion.button
                       onClick={() => setIsSearchExpanded(true)}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        border: '1px solid rgba(139, 92, 246, 0.3)',
-                        borderRadius: '8px',
+                        background: 'transparent',
+                        border: 'none',
                         padding: '8px',
-                        color: 'white',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         minWidth: '36px',
                         height: '36px',
+                        transition: 'all 0.3s ease',
                       }}
                     >
-                      <SearchIcon />
+                      <div style={{
+                        opacity: 0.7,
+                        transition: 'all 0.3s ease',
+                        color: 'rgba(255, 255, 255, 0.8)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.opacity = '1';
+                        e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(99, 102, 241, 0.5))';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.opacity = '0.7';
+                        e.currentTarget.style.filter = 'none';
+                      }}
+                      >
+                        <SearchIcon />
+                      </div>
                     </motion.button>
                   )}
                 </AnimatePresence>
@@ -1103,24 +1148,65 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
               </div>
             )}
             
-            <button
+            <motion.button
               onClick={openCart}
-              className="btn-primary-glass"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: quantumTokens.spacing.sm,
-                padding: isMobile ? `${quantumTokens.spacing.xs} ${quantumTokens.spacing.sm}` : `${quantumTokens.spacing.sm} ${quantumTokens.spacing.md}`,
-                borderRadius: quantumTokens.radius.lg,
+                padding: isMobile ? '8px 12px' : `${quantumTokens.spacing.sm} ${quantumTokens.spacing.md}`,
+                borderRadius: isMobile ? '18px' : quantumTokens.radius.lg,
                 position: 'relative',
                 minWidth: isMobile ? '36px' : 'auto',
                 height: isMobile ? '36px' : 'auto',
+                background: `linear-gradient(135deg, 
+                  rgba(99, 102, 241, 0.8) 0%, 
+                  rgba(139, 92, 246, 0.7) 50%, 
+                  rgba(99, 102, 241, 0.8) 100%
+                )`,
+                border: '1px solid rgba(99, 102, 241, 0.4)',
+                color: 'white',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(20px) saturate(150%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+                boxShadow: `
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  0 4px 16px rgba(99, 102, 241, 0.3)
+                `,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = `linear-gradient(135deg, 
+                  rgba(99, 102, 241, 0.9) 0%, 
+                  rgba(139, 92, 246, 0.8) 50%, 
+                  rgba(99, 102, 241, 0.9) 100%
+                )`;
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.6)';
+                e.currentTarget.style.boxShadow = `
+                  inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                  0 8px 24px rgba(99, 102, 241, 0.4),
+                  0 0 32px rgba(139, 92, 246, 0.2)
+                `;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = `linear-gradient(135deg, 
+                  rgba(99, 102, 241, 0.8) 0%, 
+                  rgba(139, 92, 246, 0.7) 50%, 
+                  rgba(99, 102, 241, 0.8) 100%
+                )`;
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+                e.currentTarget.style.boxShadow = `
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  0 4px 16px rgba(99, 102, 241, 0.3)
+                `;
               }}
             >
               <CartIcon />
               {getCartItemCount() > 0 && (
                 <span style={{
-                  background: quantumTokens.colors.accent,
+                  background: 'linear-gradient(135deg, #00D4FF 0%, #6366F1 100%)',
                   color: 'white',
                   borderRadius: '50%',
                   width: '18px',
@@ -1133,6 +1219,8 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                   position: 'absolute',
                   top: '-6px',
                   right: '-6px',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: '0 2px 8px rgba(0, 212, 255, 0.3)',
                 }}>
                   {getCartItemCount()}
                 </span>
@@ -1141,12 +1229,17 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
 
             {/* Mobile Menu Button */}
             {isMobile && (
-              <button
+              <motion.button
                 onClick={() => setIsMobileMenuOpen(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(139, 92, 246, 0.3)',
-                  borderRadius: '8px',
+                  background: `linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.12) 0%, 
+                    rgba(99, 102, 241, 0.15) 100%
+                  )`,
+                  border: '1px solid rgba(99, 102, 241, 0.4)',
+                  borderRadius: '12px',
                   padding: '8px',
                   color: 'white',
                   cursor: 'pointer',
@@ -1155,10 +1248,14 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                   justifyContent: 'center',
                   minWidth: '36px',
                   height: '36px',
+                  transition: 'all 0.3s ease',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                 }}
               >
                 <MenuIcon />
-              </button>
+              </motion.button>
             )}
           </div>
         </div>
@@ -1289,7 +1386,7 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                   fontWeight: '800',
                   lineHeight: '1.1',
                   marginBottom: quantumTokens.spacing.lg,
-                  background: 'linear-gradient(135deg, #00D4FF 0%, #6366F1 25%, #8B5CF6 50%, #EC4899 75%, #00FFB7 100%)',
+                  background: 'linear-gradient(135deg, #00D4FF 0%, #6366F1 30%, #8B5CF6 60%, #A855F7 80%, #00B4D8 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -1310,7 +1407,7 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                 }}>
                   Strategic mastery. Legendary gameplay.<br />
                   <span style={{
-                    background: 'linear-gradient(135deg, #FF453A 0%, #EC4899 50%, #8B5CF6 100%)',
+                    background: 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 25%, #00B4D8 50%, #00D4FF 75%, #20E0D6 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -1328,7 +1425,7 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                   <button
                     onClick={() => handleCategorySelect('miniatures')}
                     style={{
-                      background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%)',
+                      background: 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 30%, #00B4D8 60%, #00D4FF 85%, #20E0D6 100%)',
                       border: '2px solid rgba(255, 255, 255, 0.3)',
                       borderRadius: '25px',
                       color: 'white',
@@ -1339,19 +1436,19 @@ const PetersenGamesHomepage: React.FC<PetersenGamesHomepageProps> = () => {
                       transition: 'all 0.3s ease',
                       backdropFilter: 'blur(10px)',
                       WebkitBackdropFilter: 'blur(10px)',
-                      boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4), 0 0 60px rgba(139, 92, 246, 0.2)',
+                      boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4), 0 0 60px rgba(0, 180, 216, 0.3)',
                       textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
                       letterSpacing: '0.05em',
                       textTransform: 'uppercase',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
-                      e.currentTarget.style.boxShadow = '0 12px 48px rgba(99, 102, 241, 0.6), 0 0 80px rgba(139, 92, 246, 0.4)';
+                      e.currentTarget.style.boxShadow = '0 12px 48px rgba(0, 180, 216, 0.6), 0 0 80px rgba(32, 224, 214, 0.4)';
                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                      e.currentTarget.style.boxShadow = '0 8px 32px rgba(99, 102, 241, 0.4), 0 0 60px rgba(139, 92, 246, 0.2)';
+                      e.currentTarget.style.boxShadow = '0 8px 32px rgba(99, 102, 241, 0.4), 0 0 60px rgba(0, 180, 216, 0.3)';
                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                     }}
                   >
